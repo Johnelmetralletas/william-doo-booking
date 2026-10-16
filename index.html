@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Doo Auditorium — Book Your Event</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">University of Toronto · New College</div>
+    <h1>William Doo Auditorium</h1>
+    <div class="header-sub">
+      <span>📍 45 Willcocks Street, Toronto ON M5S 1C6</span>
+      <span>📞 416-946-0529</span>
+      <span>✉ nc.roombookings@utoronto.ca</span>
+    </div>
+  </div>
+</div>
+
+<div class="edit-banner" id="edit-banner">
+  <div class="edit-banner-inner">
+    <span>✏️ <strong>Editing booking</strong> <span class="bid" id="banner-id"></span> — make changes and submit to notify the office.</span>
+  </div>
+</div>
+
+<div class="progress-wrap" id="progress-wrap" style="display:none">
+  <div class="progress-inner" id="progress-bar"></div>
+</div>
+
+<!-- LANDING -->
+<div class="landing-wrap" id="landing-screen">
+  <div style="max-width:560px">
+    <div class="step-tag">William Doo Auditorium Booking</div>
+    <div class="step-title" style="font-size:26px;margin-bottom:8px">How can we help you?</div>
+    <p style="font-size:14px;color:var(--gray-400);line-height:1.6">Create a new event booking or retrieve an existing one to make changes.</p>
+  </div>
+  <div class="landing-grid">
+    <div class="landing-card" onclick="startNew()">
+      <div class="lc-icon">📋</div>
+      <div class="lc-title">New booking</div>
+      <div class="lc-sub">Fill out the booking form for a new event. Takes about 5 minutes.</div>
+      <div class="lc-action">Start booking →</div>
+    </div>
+    <div class="landing-card" onclick="toggleRetrieve()">
+      <div class="lc-icon">🔄</div>
+      <div class="lc-title">Edit existing booking</div>
+      <div class="lc-sub">Already have a reference number? Load your booking and make changes.</div>
+      <div class="lc-action">Retrieve booking →</div>
+    </div>
+  </div>
+  <div class="retrieve-wrap" id="retrieve-wrap">
+    <h3>Enter your booking reference number</h3>
+    <div class="retrieve-row">
+      <input id="retrieve-id-input" placeholder="e.g. NC-847291" onkeydown="if(event.key==='Enter')doRetrieve()">
+      <button class="btn-retrieve" onclick="doRetrieve()">Load booking</button>
+    </div>
+    <div class="retrieve-error" id="retrieve-error"></div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div id="form-screen" style="display:none">
+  <div class="main" id="main-content"></div>
+</div>
+
+<div id="toast"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
