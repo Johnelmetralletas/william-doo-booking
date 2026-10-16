@@ -148,7 +148,13 @@ a **Status** column (`Pending` / `Approved` / `Declined`) and approver-signature
 
 ## 7. Backend design (to implement in the target stack)
 
-The agreed design (Microsoft 365) — adapt to whatever platform IT/Lovable choose:
+**Where data is stored (per IT, Oct 2026):** a live SharePoint/Microsoft Graph link will
+most likely NOT be available, so bookings and PDFs should be **stored on the Ubuntu
+server itself** — a small server-side database (e.g. PostgreSQL or SQLite; or a
+**self-hosted Supabase** on the same box if using Lovable) plus a folder/table for the
+generated PDFs. Email is sent from the server via a **UofT SMTP relay** (confirm the
+relay host/credentials with IT) rather than Graph. No Azure app registration is required
+in this model. The workflow below is storage-agnostic — only the persistence layer changes.
 
 1. **On submit:** save the record as **Status = Pending**; generate a **PDF** of the form +
    floor plan; store it (named by booking ID); send emails — receipt to the organizer,
@@ -164,10 +170,11 @@ The agreed design (Microsoft 365) — adapt to whatever platform IT/Lovable choo
    as an update.
 
 ### ⚠️ Data-residency requirement
-UofT requires **all booking data and email on UofT infrastructure**. Lovable's default
-**Supabase is a third-party host and does NOT meet this** — either **self-host Supabase on
-UofT servers**, or point the Lovable front end at a **UofT-hosted / Microsoft 365** backend.
-Confirm this with IT before building the backend.
+UofT requires **all booking data and email on UofT infrastructure**. Per IT, store
+everything **on the Ubuntu server** (server-side DB + PDF files + UofT SMTP for email).
+If porting with Lovable, its default **hosted Supabase is a third-party host and does NOT
+meet this** — **self-host Supabase (or another DB) on the Ubuntu server** instead. Confirm
+the SMTP relay and server DB choice with IT before building the backend.
 
 ## 8. Running the current app
 
